@@ -14,14 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-app.use(
-  "/api/",
-  async (req, res, next) => {
-    console.log("wselt houni f index");
-    next();
-  },
-  require("./routes/index")
-);
+app.use("/api/", require("./routes/index"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
