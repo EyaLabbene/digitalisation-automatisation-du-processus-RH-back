@@ -10,11 +10,11 @@ const authMiddleware = require('../middlewares/authentificationMiddleware');
 const router =express.Router();
 
 
-router.use(authentificationMiddleware.authenticate);
+// router.use(authentificationMiddleware.authenticate); // chnowa hedha?!
 
 
-router.post('/user',userController.addUser)
-router.get('/user',userController.getAllUsers);
+router.post('/',userController.addUser)
+router.get('/',userController.getAllUsers);
 router.get('/:userId',userController.getSingleUser);
 router.put('/:userId',userController.updateUser);
 router.delete('/:userId',userController. deleteUser);

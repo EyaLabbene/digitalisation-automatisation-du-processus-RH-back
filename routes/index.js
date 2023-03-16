@@ -1,19 +1,15 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+var app = express();
 
-
-
-
-router.get('/dashboard', function(req, res, next) {
-  res.json({ test: "hello" });
-  });
-  
-  
- 
+app.use(
+  "/user",
+  async (req, res, next) => {
+    console.log("wselt houni");
+    next();
+  },
+  require("./userRoute")
+);
 
 module.exports = router;

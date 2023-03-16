@@ -6,7 +6,7 @@ const absenceService = require("../services/absenceService");
     const absence = await absenceService.CreateAbsence(req.body);
     res.status(201).json(absence);
   } catch (error) {
-    res.send('error') ;
+    next(error);
   }
 };
 
@@ -15,7 +15,7 @@ const absenceService = require("../services/absenceService");
     const absences = await absenceService.FindAllAbsences();
     res.json(absences);
   } catch (error) {
-    res.send('error') ;
+    next(error);
   }
 };
 
@@ -24,7 +24,7 @@ const absenceService = require("../services/absenceService");
     const absence = await absenceService.FindSingleAbsence(req.params.absenceId);
     res.json(absence);
   } catch (error) {
-    res.send('error') ;
+    next(error);
   }
 };
 
@@ -36,7 +36,7 @@ const absenceService = require("../services/absenceService");
     );
     res.json(absence);
   } catch (error) {
-    res.send('error') ;
+    next(error);
   }
 };
 
@@ -45,7 +45,7 @@ const absenceService = require("../services/absenceService");
     const absence = await absenceService.DeleteAbsence(req.params.absenceId);
     res.json(absence);
   } catch (error) {
-    res.send('error') ;
+    next(error);
   }
 };
 
