@@ -1,25 +1,15 @@
-const express = require('express');
-const ReunionController = require('../Controllers/ReunionController');
-const authMiddleware = require('../middlewares/authentificationMiddleware');
+const express = require("express");
+const ReunionController = require("../Controllers/ReunionController");
+//const authMiddleware = require("../middlewares/authentificationMiddleware");
 
+const router = express.Router();
 
+//router.use(authentificationMiddleware.authenticate);
 
+router.post("/", ReunionController.addReunion);
+router.get("/", ReunionController.getAllReunions);
+router.get("/:reunionId", ReunionController.getSingleReunion);
+router.put("/:reunionId", ReunionController.updateReunion);
+router.delete("/:reunionId", ReunionController.deleteReunion);
 
-
-
-const router =express.Router();
-
-
-router.use(authentificationMiddleware.authenticate);
-
-
-router.post('/réunion',ReunionController.addReunion)
-router.get('/réunion',ReunionController.getAllReunions);
-router.get('/:réunionId',ReunionController.getSingleReunion);
-router.put('/:réunionId',ReunionController.updateReunion);
-router.delete('/:réunionId',ReunionController. deleteReunion);
-
-
-
-module.exports = router ;
-
+module.exports = router;

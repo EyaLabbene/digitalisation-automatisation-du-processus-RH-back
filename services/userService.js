@@ -6,6 +6,7 @@ async function CreateUser(userData) {
     const savedUser = await user.save();
     return savedUser;
   } catch (error) {
+    console.log(error);
     throw new Error("Error creating user: " + error.message);
   }
 }

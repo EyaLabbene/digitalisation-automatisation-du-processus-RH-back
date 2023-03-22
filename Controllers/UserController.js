@@ -5,13 +5,12 @@ async function addUser(req, res, next) {
     const user = await userService.CreateUser(req.body);
     res.status(201).json(user);
   } catch (error) {
-    res.send("error");
+    res.send(error);
   }
 }
 
 async function getAllUsers(req, res, next) {
   try {
-    console.log("3aytouli");
     const users = await userService.FindAllUsers();
     res.json(users);
   } catch (error) {
