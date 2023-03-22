@@ -3,14 +3,14 @@ var app = express();
 // houni sala7t l export
 app.use("/user", require("./userRoute"));
 app.use("/testTech", require("./testTechniqueRoute"));
-app.use("/reunion", require("./reunionRoute"));
-app.use("/résultat", require("./résultatRoute"));
-app.use("/réclamation", require("./réclamationRoute"));
-app.use("/projet", require("./projetRoute"));
-app.use("/profil", require("./profilRoute"));
+app.use("/meeting", require("./meetingRoute"));
+app.use("/result", require("./resultRoute"));
+app.use("/complaint", require("./complaintRoute"));
+app.use("/project", require("./projectRoute"));
+app.use("/profile", require("./profileRoute"));
 app.use("/poste", require("./posteRoute"));
-app.use("/entretien", require("./entretienRoute"));
-app.use("/congé", require("./congéRoute"));
+app.use("/interview", require("./interviewRoute"));
+app.use("/leave", require("./leaveRoute"));
 app.use("/absence", require("./absenceRoute"));
 
 module.exports = app;

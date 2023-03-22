@@ -4,11 +4,11 @@ const bcrypt = require("bcrypt");
 
 const UserSchema = new Schema( //22 soit tarjem kol chay francais soit kol chay anglais w mel mostahsen kol chay anglais
   {
-    nom: { type: String, required: true },
-    Prenom: { type: String, required: true },
+    name: { type: String, required: true },
+    first_name: { type: String, required: true },
     role: { type: String, required: true },
-    adresse: { type: String, required: true },
-    dateNaissance: { type: Date },
+    address: { type: String, required: true },
+    date_of_birth: { type: Date },
     Username: { type: String, required: true },
     password: { type: String, required: true },
     email: { type: String, required: true },

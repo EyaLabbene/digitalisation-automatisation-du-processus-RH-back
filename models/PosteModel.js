@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const PosteSchema = new Schema(
   {
-    Titre: { type: String, required: true }, //22 majuscule le
+    title: { type: String, required: true }, //22 majuscule le
     image: { type: Buffer, required: true },
   },
   { timestamps: true }
