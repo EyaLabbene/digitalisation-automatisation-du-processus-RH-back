@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const AbsenceSchema = new Schema(
   {
-    nom_employee: { type: String, required: true },
+    nom_employee: { type: String, required: true }, //22 nekhdmouhesh haka hedhi fasakha w to nwarik kifeh naamlouha besh naamlou virtual link binet el absence w employé appartir mel id tansesh l esm ynajem yetawed ama id dima unique
     justification: { type: String, required: true },
   },
   { timestamps: true }

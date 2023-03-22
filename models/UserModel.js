@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 
-const UserSchema = new Schema(
+const UserSchema = new Schema( //22 soit tarjem kol chay francais soit kol chay anglais w mel mostahsen kol chay anglais
   {
     nom: { type: String, required: true },
     Prenom: { type: String, required: true },

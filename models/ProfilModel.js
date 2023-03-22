@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ProfilSchema = new Schema(
+const ProfilSchema = new Schema( //22  les informations hedhom moush deja majoudin fel user?
   {
     nom: { type: String, required: true },
     prenom: { type: String, required: true },

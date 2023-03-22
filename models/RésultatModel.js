@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const ResultatSchema = new Schema(
   {
-    réponse: { type: String, required: true },
+    réponse: { type: String, required: true }, //22 omrek ma testamel accent f hajet haka yjiboulek machekel ba3d
   },
   { timestamps: true }
 );
