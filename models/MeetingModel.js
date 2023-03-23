@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const MeetingSchema = new Schema(
+const meetingSchema = new Schema(
   {
     date: { type: Date, required: true },
     start_time: { type: Date, required: true },
@@ -10,4 +10,4 @@ const MeetingSchema = new Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("meeting", MeetingSchema);
+module.exports = mongoose.model("meeting", meetingSchema);

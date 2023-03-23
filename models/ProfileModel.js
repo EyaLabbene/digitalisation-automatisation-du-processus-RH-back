@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ProfileSchema = new Schema( //22  les informations hedhom moush deja majoudin fel user?
+const profileSchema = new Schema( //22  les informations hedhom moush deja majoudin fel user?
   {
     name: { type: String, required: true },
     first_name: { type: String, required: true },
@@ -13,4 +13,4 @@ const ProfileSchema = new Schema( //22  les informations hedhom moush deja majou
   { timestamps: true }
 );
 
-module.exports = mongoose.model("profile", ProfileSchema);
+module.exports = mongoose.model("profile", profileSchema);

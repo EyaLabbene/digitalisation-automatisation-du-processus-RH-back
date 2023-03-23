@@ -1,12 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const InterviewSchema = new Schema(
+const interviewSchema = new Schema(
   {
-    start_date: { type: Date, required: true }, //22 accent le kima 9otlek fel fichier lekher
+    interviewer: { type: String, required: true },
+    interviewee: { type: String, required: true },
+    start_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("interview", InterviewSchema);
+module.exports = mongoose.model("interview", interviewSchema);

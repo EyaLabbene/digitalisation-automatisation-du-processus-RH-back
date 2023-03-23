@@ -1,12 +1,23 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ComplaintSchema = new Schema(
+const complaintSchema = new Schema(
   {
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "user",
+      /*refConditions: {
+				$or: [
+					{ deleted: { $exists: false } },
+					{ deleted: { $exists: true, $eq: false } },
+				],
+			},*/
+    },
     object: { type: String, required: true },
-    message: { type: String, required: true }, //22 n9oulou objet w message khir dhaharli
+    message: { type: String, required: true },
   },
   { timestamps: true }
 );
 
-module.exports = mongoose.model("complaint", ComplaintSchema); //22 kifkif houni tnajem tehleklek barsha hajet l accent
+module.exports = mongoose.model("complaint", complaintSchema);

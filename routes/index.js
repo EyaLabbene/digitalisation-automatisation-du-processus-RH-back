@@ -2,9 +2,9 @@ var express = require("express");
 var app = express();
 // houni sala7t l export
 app.use("/user", require("./userRoute"));
-app.use("/testTech", require("./testTechniqueRoute"));
+app.use("/techTest", require("./technicalTestRoute"));
 app.use("/meeting", require("./meetingRoute"));
-app.use("/result", require("./resultRoute"));
+
 app.use("/complaint", require("./complaintRoute"));
 app.use("/project", require("./projectRoute"));
 app.use("/profile", require("./profileRoute"));

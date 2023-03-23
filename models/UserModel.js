@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const bcrypt = require("bcrypt");
 
-const UserSchema = new Schema( //22 soit tarjem kol chay francais soit kol chay anglais w mel mostahsen kol chay anglais
+const userSchema = new Schema(
   {
-    name: { type: String, required: true },
+    last_name: { type: String, required: true },
     first_name: { type: String, required: true },
     role: { type: String, required: true },
     address: { type: String, required: true },
@@ -15,7 +15,7 @@ const UserSchema = new Schema( //22 soit tarjem kol chay francais soit kol chay 
   },
   { timestamps: true }
 );
-UserSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   const user = this;
   if (!user.isModified("password")) return next();
   const salt = await bcrypt.genSalt(10);
@@ -24,4 +24,4 @@ UserSchema.pre("save", async function (next) {
   next();
 });
 
-module.exports = mongoose.model("user", UserSchema);
+module.exports = mongoose.model("user", userSchema);
