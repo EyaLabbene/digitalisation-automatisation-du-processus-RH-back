@@ -7,6 +7,11 @@ const interviewSchema = new Schema(
     interviewee: { type: String, required: true },
     start_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
+    result_case: {
+      type: String,
+      enum: ["accepted", "waiting", "refused"],
+      default: "waiting",
+    },
   },
   { timestamps: true }
 );
