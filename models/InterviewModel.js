@@ -3,8 +3,12 @@ const Schema = mongoose.Schema;
 
 const interviewSchema = new Schema(
   {
-    interviewer: { type: String, required: true },
-    interviewee: { type: String, required: true },
+    interviewer: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+    interviewee: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "user",
+    },
     start_date: { type: Date, required: true },
     end_date: { type: Date, required: true },
     result_case: {
