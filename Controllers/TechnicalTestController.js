@@ -27,7 +27,7 @@ async function getSingleTechTest(req, res, next) {
     );
     res.json(technicalTest);
   } catch (error) {
-    res.send(error);
+    res.send(error.message);
   }
 }
 

@@ -25,7 +25,7 @@ async function getSingleInterview(req, res, next) {
     );
     res.json(interview);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 

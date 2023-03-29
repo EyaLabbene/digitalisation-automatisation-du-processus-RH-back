@@ -23,7 +23,7 @@ async function getSingleLeave(req, res, next) {
     const leave = await LeaveService.FindSingleLeave(req.params.leaveId);
     res.json(leave);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 

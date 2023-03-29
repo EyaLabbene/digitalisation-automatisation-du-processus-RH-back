@@ -25,7 +25,7 @@ async function getSingleComplaint(req, res, next) {
     );
     res.json(complaint);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 

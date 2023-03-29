@@ -23,7 +23,7 @@ async function getSingleUser(req, res, next) {
     const user = await userService.FindSingleUser(req.params.userId);
     res.json(user);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 

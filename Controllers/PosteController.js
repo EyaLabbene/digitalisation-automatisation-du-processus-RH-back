@@ -23,7 +23,7 @@ async function getSinglePoste(req, res, next) {
     const poste = await posteService.FindSinglePoste(req.params.posteId);
     res.json(poste);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 

@@ -37,7 +37,7 @@ async function updateProfile(req, res, next) {
     );
     res.json(profile);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 

@@ -25,7 +25,7 @@ async function getSingleAbsence(req, res, next) {
     );
     res.json(absence);
   } catch (error) {
-    next(error);
+    res.send(error.message);
   }
 }
 

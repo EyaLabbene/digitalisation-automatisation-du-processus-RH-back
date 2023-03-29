@@ -24,7 +24,7 @@ async function getSingleMeeting(req, res, next) {
     );
     res.json(meeting);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 
