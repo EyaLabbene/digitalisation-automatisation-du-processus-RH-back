@@ -17,17 +17,13 @@ async function FindAllTechnicalTests() {
     throw new Error("Error finding all TechnicalTests: " + error.message);
   }
 }
-async function FindSingleTechnicalTest(technicalTestId, technicalTestData) {
+async function FindSingleTechnicalTest(technicalTestId) {
   try {
-    const TechnicalTest = await TechnicalTest.findById(
-      technicalTestId,
-      technicalTestData,
-      { new: true }
-    );
-    if (!technicalTest) {
+    const currentTechnicalTest = await TechnicalTest.findById(technicalTestId);
+    if (!currentTechnicalTest) {
       throw new Error("TechnicalTest not found");
     }
-    return technicalTest;
+    return currentTechnicalTest;
   } catch (error) {
     throw new Error("Error finding  TechnicalTest: " + error.message);
   }

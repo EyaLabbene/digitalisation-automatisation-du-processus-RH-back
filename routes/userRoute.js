@@ -2,7 +2,7 @@ const express = require("express");
 const userController = require("../Controllers/UserController");
 const authMiddleware = require("../middlewares/authentificationMiddleware");
 const router = express.Router();
-// router.use(authentificationMiddleware.authenticate); // chnowa hedha?!
+// router.use(authentificationMiddleware.authenticate);
 router.post("/", userController.addUser);
 router.get("/", userController.getAllUsers);
 router.get("/:userId", userController.getSingleUser);

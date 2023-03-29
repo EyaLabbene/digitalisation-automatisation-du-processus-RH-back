@@ -23,18 +23,20 @@ async function getAllTechTest(req, res, next) {
 async function getSingleTechTest(req, res, next) {
   try {
     const technicalTest = await technicalTestService.FindSingleTechnicalTest(
-      req.params.technicalTestId
+      req.params.techTestId
     );
     res.json(technicalTest);
   } catch (error) {
-    res.send("error");
+    res.send(error);
   }
 }
 
 async function updateTechTest(req, res, next) {
   try {
+    console.log(req.params.techTestId);
+    console.log(req.body);
     const technicalTest = await technicalTestService.UpdateTechnicalTest(
-      req.params.technicalTestId,
+      req.params.techTestId,
       req.body
     );
     res.json(technicalTest);
@@ -46,7 +48,7 @@ async function updateTechTest(req, res, next) {
 async function deleteTechTest(req, res, next) {
   try {
     const technicalTest = await technicalTestService.DeleteTechnicalTest(
-      req.params.technicalTestId
+      req.params.techTestId
     );
     res.json(technicalTest);
   } catch (error) {

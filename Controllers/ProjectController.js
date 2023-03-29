@@ -20,12 +20,14 @@ async function getAllProjects(req, res, next) {
 
 async function getSingleProject(req, res, next) {
   try {
+    console.log("khlat");
+    console.log(req.params);
     const project = await projectService.FindSingleProject(
       req.params.projectId
     );
     res.json(project);
   } catch (error) {
-    res.send("error");
+    res.send(error.message);
   }
 }
 async function updateProject(req, res, next) {

@@ -19,11 +19,11 @@ async function FindAllProjects() {
     throw new Error("Error finding all projects: " + error.message);
   }
 }
-async function FindSingleProject(projectId, projectData) {
+async function FindSingleProject(projectId) {
   try {
-    const project = await Project.findById(projectId, projectData, {
-      new: true,
-    });
+    console.log("khlat l service");
+    const project = await Project.findById(projectId);
+    console.log(project);
     if (!project) {
       throw new Error("project not found");
     }

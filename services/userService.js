@@ -41,7 +41,10 @@ async function FindSingleUser(userId, userData) {
 
 async function UpdateUser(userId, userData) {
   try {
+    console.log(userId);
+    console.log(userData);
     const user = await User.findByIdAndUpdate(userId, userData, { new: true });
+    console.log(user);
     if (!user) {
       throw new Error("User not found");
     }
