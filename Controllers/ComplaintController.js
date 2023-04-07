@@ -2,7 +2,7 @@ const complaintService = require("../services/complaintService");
 
 async function addComplaint(req, res, next) {
   try {
-    const complaint = await complaintService.CreateComplaint(req.body);
+    const complaint = await complaintService.CreateComplaint(req, res, next);
     res.status(201).json(complaint);
   } catch (error) {
     res.send(error);
@@ -11,7 +11,7 @@ async function addComplaint(req, res, next) {
 
 async function getAllComplaints(req, res, next) {
   try {
-    const complaints = await complaintService.FindAllComplaints();
+    const complaints = await complaintService.FindAllComplaints(req, res, next);
     res.json(complaints);
   } catch (error) {
     res.send("error");
@@ -21,7 +21,9 @@ async function getAllComplaints(req, res, next) {
 async function getSingleComplaint(req, res, next) {
   try {
     const complaint = await complaintService.FindSingleComplaint(
-      req.params.complaintId
+      req,
+      res,
+      next
     );
     res.json(complaint);
   } catch (error) {
@@ -31,10 +33,7 @@ async function getSingleComplaint(req, res, next) {
 
 async function updateComplaint(req, res, next) {
   try {
-    const complaint = await complaintService.UpdateComplaint(
-      req.params.complaintId,
-      req.body
-    );
+    const complaint = await complaintService.UpdateComplaint(req, res, next);
     res.json(complaint);
   } catch (error) {
     res.send("error");
@@ -43,9 +42,7 @@ async function updateComplaint(req, res, next) {
 
 async function deleteComplaint(req, res, next) {
   try {
-    const complaint = await complaintService.DeleteComplaint(
-      req.params.complaintId
-    );
+    const complaint = await complaintService.DeleteComplaint(req, res, next);
     res.json(complaint);
   } catch (error) {
     res.send("error");

@@ -1,33 +1,33 @@
 const Leave = require("../models/LeaveModel");
 
-async function CreateLeave(leaveData) {
+async function CreateLeave(req, res, next) {
   try {
-    const leave = new Leave(leaveData);
+    const leave = new Leave(req.body);
     const savedLeave = await leave.save();
     return savedLeave;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating leave: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllLeaves() {
+async function FindAllLeaves(req, res, next) {
   try {
     const leaves = await Leave.find();
     return leaves;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all leaves: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleLeave(leaveId, leaveData) {
+async function FindSingleLeave(req, res, next) {
   try {
-    const leave = await Leave.findById(leaveId, leaveData, { new: true });
+    const leave = await Leave.findById(req.params.leaveId);
     if (!leave) {
-      throw new Error("leave not found");
+      res.status(404);
     }
     return leave;
   } catch (error) {
-    throw new Error("Error finding  leave: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const Updateleave =async(req,res)=>{
@@ -39,28 +39,28 @@ async function FindSingleLeave(leaveId, leaveData) {
 
 }*/
 
-async function UpdateLeave(leaveId, leaveData) {
+async function UpdateLeave(req, res, next) {
   try {
-    const leave = await Leave.findByIdAndUpdate(leaveId, leaveData, {
+    const leave = await Leave.findByIdAndUpdate(req.params.leaveId, req.body, {
       new: true,
     });
     if (!leave) {
-      throw new Error("leave not found");
+      res.status(404);
     }
     return leave;
   } catch (error) {
-    throw new Error("Error updating leave: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteLeave(leaveId) {
+async function DeleteLeave(req, res, next) {
   try {
-    const leave = await Leave.findByIdAndDelete(leaveId);
+    const leave = await Leave.findByIdAndDelete(req.params.leaveId);
     if (!leave) {
-      throw new Error("leave not found");
+      res.status(404);
     }
     return leave;
   } catch (error) {
-    throw new Error("Error deleting leave: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

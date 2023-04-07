@@ -1,35 +1,33 @@
 const Absence = require("../models/AbsenceModel");
 
-async function CreateAbsence(absenceData) {
+async function CreateAbsence(req, res, next) {
   try {
-    const absence = new Absence(absenceData);
+    const absence = new Absence(req.body);
     const savedAbsence = await absence.save();
     return savedAbsence;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating absence: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllAbsences() {
+async function FindAllAbsences(req, res, next) {
   try {
     const absences = await Absence.find();
     return absences;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all absences: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleAbsence(absenceId, absenceData) {
+async function FindSingleAbsence(req, res, next) {
   try {
-    const absence = await Absence.findById(absenceId, absenceData, {
-      new: true,
-    });
+    const absence = await Absence.findById(req.params.absenceId);
     if (!absence) {
-      throw new Error("absence not found");
+      res.status(404);
     }
     return absence;
   } catch (error) {
-    throw new Error("Error finding  absence: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const Updateabsence =async(req,res)=>{
@@ -41,28 +39,32 @@ async function FindSingleAbsence(absenceId, absenceData) {
 
 }*/
 
-async function UpdateAbsence(absenceId, absenceData) {
+async function UpdateAbsence(req, res, next) {
   try {
-    const absence = await Absence.findByIdAndUpdate(absenceId, absenceData, {
-      new: true,
-    });
+    const absence = await Absence.findByIdAndUpdate(
+      req.params.absenceId,
+      req.body,
+      {
+        new: true,
+      }
+    );
     if (!absence) {
-      throw new Error("absence not found");
+      res.status(404);
     }
     return absence;
   } catch (error) {
-    throw new Error("Error updating absence: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteAbsence(absenceId) {
+async function DeleteAbsence(req, res, next) {
   try {
-    const absence = await Absence.findByIdAndDelete(absenceId);
+    const absence = await Absence.findByIdAndDelete(req.params.absenceId);
     if (!absence) {
-      throw new Error("absence not found");
+      res.status(404);
     }
     return absence;
   } catch (error) {
-    throw new Error("Error deleting absence: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

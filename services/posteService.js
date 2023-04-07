@@ -1,33 +1,33 @@
 const Poste = require("../models/PosteModel");
 
-async function CreatePoste(posteData) {
+async function CreatePoste(req, res, next) {
   try {
-    const poste = new Poste(posteData);
+    const poste = new Poste(req.data);
     const savedPoste = await poste.save();
     return savedPoste;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating poste: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllPostes() {
+async function FindAllPostes(req, res, next) {
   try {
     const postes = await Poste.find();
     return postes;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all postes: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSinglePoste(posteId, posteData) {
+async function FindSinglePoste(req, res, next) {
   try {
-    const poste = await Poste.findById(posteId, posteData, { new: true });
+    const poste = await Poste.findById(req.params.posteId);
     if (!poste) {
-      throw new Error("poste not found");
+      res.status(404);
     }
     return poste;
   } catch (error) {
-    throw new Error("Error finding  poste: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const Updateposte =async(req,res)=>{
@@ -39,28 +39,28 @@ async function FindSinglePoste(posteId, posteData) {
 
 }*/
 
-async function UpdatePoste(posteId, posteData) {
+async function UpdatePoste(req, res, next) {
   try {
-    const poste = await Poste.findByIdAndUpdate(posteId, posteData, {
+    const poste = await Poste.findByIdAndUpdate(req.params.posteId, req.data, {
       new: true,
     });
     if (!poste) {
-      throw new Error("poste not found");
+      res.status(404);
     }
     return poste;
   } catch (error) {
-    throw new Error("Error updating poste: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeletePoste(posteId) {
+async function DeletePoste(req, res, next) {
   try {
-    const poste = await Poste.findByIdAndDelete(posteId);
+    const poste = await Poste.findByIdAndDelete(req.params.posteId);
     if (!poste) {
-      throw new Error("poste not found");
+      res.status(404);
     }
     return poste;
   } catch (error) {
-    throw new Error("Error deleting poste: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

@@ -1,33 +1,33 @@
 const User = require("../models/UserModel");
 
-async function CreateUser(userData) {
+async function CreateUser(req, res, next) {
   try {
-    const user = new User(userData);
+    const user = new User(req.body);
     const savedUser = await user.save();
     return savedUser;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating user: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllUsers() {
+async function FindAllUsers(req, res, next) {
   try {
     const users = await User.find();
     return users;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all users: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleUser(userId, userData) {
+async function FindSingleUser(req, res, next) {
   try {
-    const user = await User.findById(userId, userData, { new: true });
+    const user = await User.findById(req.params.userId);
     if (!user) {
-      throw new Error("User not found");
+      res.status(404);
     }
     return user;
   } catch (error) {
-    throw new Error("Error finding  user: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const UpdateUser =async(req,res)=>{
@@ -39,29 +39,31 @@ async function FindSingleUser(userId, userData) {
 
 }*/
 
-async function UpdateUser(userId, userData) {
+async function UpdateUser(req, res, next) {
   try {
-    console.log(userId);
-    console.log(userData);
-    const user = await User.findByIdAndUpdate(userId, userData, { new: true });
+    console.log(req.params.userId);
+    console.log(req.body);
+    const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
+      new: true,
+    });
     console.log(user);
     if (!user) {
-      throw new Error("User not found");
+      res.status(404);
     }
     return user;
   } catch (error) {
-    throw new Error("Error updating user: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteUser(userId) {
+async function DeleteUser(req, res, next) {
   try {
-    const user = await User.findByIdAndDelete(userId);
+    const user = await User.findByIdAndDelete(req.params.userId);
     if (!user) {
-      throw new Error("User not found");
+      res.status(404);
     }
     return user;
   } catch (error) {
-    throw new Error("Error deleting user: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

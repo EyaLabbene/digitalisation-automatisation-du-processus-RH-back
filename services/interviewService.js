@@ -1,35 +1,33 @@
 const Interview = require("../models/InterviewModel");
 
-async function CreateInterview(interviewData) {
+async function CreateInterview(req, res, next) {
   try {
-    const interview = new Interview(interviewData);
+    const interview = new Interview(req.body);
     const savedInterview = await interview.save();
     return savedInterview;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating interview: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllInterviews() {
+async function FindAllInterviews(req, res, next) {
   try {
     const interviews = await Interview.find();
     return interviews;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all interviews: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleInterview(interviewId, interviewData) {
+async function FindSingleInterview(req, res, next) {
   try {
-    const interview = await Interview.findById(interviewId, interviewData, {
-      new: true,
-    });
+    const interview = await Interview.findById(req.params.interviewId);
     if (!interview) {
-      throw new Error("interview not found");
+      res.status(404);
     }
     return interview;
   } catch (error) {
-    throw new Error("Error finding  interview: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const Updateinterview =async(req,res)=>{
@@ -41,30 +39,30 @@ async function FindSingleInterview(interviewId, interviewData) {
 
 }*/
 
-async function UpdateInterview(interviewId, interviewData) {
+async function UpdateInterview(req, res, next) {
   try {
     const interview = await Interview.findByIdAndUpdate(
-      interviewId,
-      interviewData,
+      req.params.interviewId,
+      req.body,
       { new: true }
     );
     if (!interview) {
-      throw new Error("interview not found");
+      res.status(404);
     }
     return interview;
   } catch (error) {
-    throw new Error("Error updating interview: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteInterview(interviewId) {
+async function DeleteInterview(req, res, next) {
   try {
-    const interview = await Interview.findByIdAndDelete(interviewId);
+    const interview = await Interview.findByIdAndDelete(req.params.interviewId);
     if (!interview) {
-      throw new Error("interview not found");
+      res.status(404);
     }
     return interview;
   } catch (error) {
-    throw new Error("Error deleting interview: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

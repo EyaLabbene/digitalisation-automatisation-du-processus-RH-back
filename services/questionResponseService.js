@@ -1,35 +1,37 @@
 const QuestionResponse = require("../models/QuestionResponseModel");
 
-async function CreateQuestionResponse(questionResponseData) {
+async function CreateQuestionResponse(req, res, next) {
   try {
-    const questionResponse = new QuestionResponse(questionResponseData);
+    const questionResponse = new QuestionResponse(req.body);
     const savedQuestionResponse = await questionResponse.save();
     return savedQuestionResponse;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating questionResponse: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllQuestionResponses() {
+async function FindAllQuestionResponses(req, res, next) {
   try {
     const questionResponses = await QuestionResponse.find();
     return questionResponses;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all questionResponses: " + error.message);
+    console.log(error);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleQuestionResponse(questionResponseId) {
+async function FindSingleQuestionResponse(req, res, next) {
   try {
     const questionResponse = await QuestionResponse.findById(
-      questionResponseId
+      req.params.questionResponseId
     );
     if (!questionResponse) {
-      throw new Error("questionResponse not found");
+      res.status(404);
     }
     return questionResponse;
   } catch (error) {
-    throw new Error("Error finding  questionResponse: " + error.message);
+    console.log(error);
+    res.status(500).send(error.message);
   }
 }
 /*const UpdatequestionResponse =async(req,res)=>{
@@ -41,37 +43,36 @@ async function FindSingleQuestionResponse(questionResponseId) {
 
 }*/
 
-async function UpdateQuestionResponse(
-  questionResponseId,
-  questionResponseData
-) {
+async function UpdateQuestionResponse(req, res, next) {
   try {
     const questionResponse = await QuestionResponse.findByIdAndUpdate(
-      questionResponseId,
-      questionResponseData,
+      req.params.questionResponseId,
+      req.body,
       {
         new: true,
       }
     );
     if (!questionResponse) {
-      throw new Error("questionResponse not found");
+      res.status(404);
     }
     return questionResponse;
   } catch (error) {
-    throw new Error("Error updating questionResponse: " + error.message);
+    console.log(error);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteQuestionResponse(questionResponseId) {
+async function DeleteQuestionResponse(req, res, next) {
   try {
     const questionResponse = await QuestionResponse.findByIdAndDelete(
-      questionResponseId
+      req.params.questionResponseId
     );
     if (!questionResponse) {
-      throw new Error("questionResponse not found");
+      res.status(404);
     }
     return questionResponse;
   } catch (error) {
-    throw new Error("Error deleting questionResponse: " + error.message);
+    console.log(error);
+    res.status(500).send(error.message);
   }
 }
 async function CompareAnswers(questionResponseId, currentAnswer) {

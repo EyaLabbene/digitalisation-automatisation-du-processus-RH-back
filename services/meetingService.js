@@ -1,35 +1,33 @@
 const Meeting = require("../models/MeetingModel");
 
-async function CreateMeeting(meetingData) {
+async function CreateMeeting(req, res, next) {
   try {
-    const meeting = new Meeting(meetingData);
+    const meeting = new Meeting(req.body);
     const savedMeeting = await meeting.save();
     return savedMeeting;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating meeting: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllMeetings() {
+async function FindAllMeetings(req, res, next) {
   try {
     const meetings = await Meeting.find();
     return meetings;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all meetings: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleMeeting(meetingId, meetingData) {
+async function FindSingleMeeting(req, res, next) {
   try {
-    const meeting = await Meeting.findById(meetingId, meetingData, {
-      new: true,
-    });
+    const meeting = await Meeting.findById(req.params.meetingId);
     if (!meeting) {
-      throw new Error("meeting not found");
+      res.status(404);
     }
     return meeting;
   } catch (error) {
-    throw new Error("Error finding  meeting: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const Updatemeeting =async(req,res)=>{
@@ -41,28 +39,32 @@ async function FindSingleMeeting(meetingId, meetingData) {
 
 }*/
 
-async function UpdateMeeting(meetingId, meetingData) {
+async function UpdateMeeting(req, res, next) {
   try {
-    const meeting = await Meeting.findByIdAndUpdate(meetingId, meetingData, {
-      new: true,
-    });
+    const meeting = await Meeting.findByIdAndUpdate(
+      req.params.meetingId,
+      req.body,
+      {
+        new: true,
+      }
+    );
     if (!meeting) {
-      throw new Error("meeting not found");
+      res.status(404);
     }
     return meeting;
   } catch (error) {
-    throw new Error("Error updating meeting: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteMeeting(meetingId) {
+async function DeleteMeeting(req, res, next) {
   try {
-    const meeting = await Meeting.findByIdAndDelete(meetingId);
+    const meeting = await Meeting.findByIdAndDelete(req.params.meetingId);
     if (!meeting) {
-      throw new Error("meeting not found");
+      res.status(404);
     }
     return meeting;
   } catch (error) {
-    throw new Error("Error deleting meeting: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

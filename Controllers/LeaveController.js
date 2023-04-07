@@ -2,7 +2,7 @@ const LeaveService = require("../services/leaveService");
 
 async function addLeave(req, res, next) {
   try {
-    const leave = await LeaveService.CreateLeave(req.body);
+    const leave = await LeaveService.CreateLeave(req, res, next);
     res.status(201).json(leave);
   } catch (error) {
     res.send(error);
@@ -11,7 +11,7 @@ async function addLeave(req, res, next) {
 
 async function getAllLeaves(req, res, next) {
   try {
-    const leaves = await LeaveService.FindAllLeaves();
+    const leaves = await LeaveService.FindAllLeaves(req, res, next);
     res.json(leaves);
   } catch (error) {
     res.send("error");
@@ -20,7 +20,7 @@ async function getAllLeaves(req, res, next) {
 
 async function getSingleLeave(req, res, next) {
   try {
-    const leave = await LeaveService.FindSingleLeave(req.params.leaveId);
+    const leave = await LeaveService.FindSingleLeave(req, res, next);
     res.json(leave);
   } catch (error) {
     res.send(error.message);
@@ -29,7 +29,7 @@ async function getSingleLeave(req, res, next) {
 
 async function updateLeave(req, res, next) {
   try {
-    const leave = await LeaveService.UpdateLeave(req.params.leaveId, req.body);
+    const leave = await LeaveService.UpdateLeave(req, res, next);
     res.json(leave);
   } catch (error) {
     res.send("error");
@@ -38,7 +38,7 @@ async function updateLeave(req, res, next) {
 
 async function deleteLeave(req, res, next) {
   try {
-    const leave = await LeaveService.DeleteLeave(req.params.leaveId);
+    const leave = await LeaveService.DeleteLeave(req, res, next);
     res.json(leave);
   } catch (error) {
     res.send("error");

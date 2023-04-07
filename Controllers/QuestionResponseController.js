@@ -3,7 +3,7 @@ const questionResponseService = require("../services/questionResponseService");
 async function addQuestionResponse(req, res, next) {
   try {
     const questionResponse =
-      await questionResponseService.CreateQuestionResponse(req.body);
+      await questionResponseService.CreateQuestionResponse(req, res, next);
     res.status(201).json(questionResponse);
   } catch (error) {
     res.send(error);
@@ -13,7 +13,7 @@ async function addQuestionResponse(req, res, next) {
 async function getAllQuestionResponses(req, res, next) {
   try {
     const questionResponses =
-      await questionResponseService.FindAllQuestionResponses();
+      await questionResponseService.FindAllQuestionResponses(req, res, next);
     res.json(questionResponses);
   } catch (error) {
     res.send("error");
@@ -22,12 +22,10 @@ async function getAllQuestionResponses(req, res, next) {
 
 async function getSingleQuestionResponse(req, res, next) {
   try {
-    console.log("khlat");
-    console.log(req.params);
+    /*console.log("khlat");
+    console.log(req.params);*/
     const questionResponse =
-      await questionResponseService.FindSingleQuestionResponse(
-        req.params.questionResponseId
-      );
+      await questionResponseService.FindSingleQuestionResponse(req, res, next);
     res.json(questionResponse);
   } catch (error) {
     res.send(error.message);
@@ -36,10 +34,7 @@ async function getSingleQuestionResponse(req, res, next) {
 async function updateQuestionResponse(req, res, next) {
   try {
     const questionResponse =
-      await questionResponseService.UpdateQuestionResponse(
-        req.params.questionResponseId,
-        req.body
-      );
+      await questionResponseService.UpdateQuestionResponse(req, res, next);
     res.json(questionResponse);
   } catch (error) {
     res.send("error");
@@ -61,9 +56,7 @@ async function compareAnswer(req, res, next) {
 async function deleteQuestionResponse(req, res, next) {
   try {
     const questionResponse =
-      await questionResponseService.DeleteQuestionResponse(
-        req.params.questionResponseId
-      );
+      await questionResponseService.DeleteQuestionResponse(req, res, next);
     res.json(questionResponse);
   } catch (error) {
     res.send("error");

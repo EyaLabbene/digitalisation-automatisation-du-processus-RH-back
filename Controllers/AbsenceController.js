@@ -2,7 +2,7 @@ const absenceService = require("../services/absenceService");
 
 async function addAbsence(req, res, next) {
   try {
-    const absence = await absenceService.CreateAbsence(req.body);
+    const absence = await absenceService.CreateAbsence(req, res, next);
     res.status(201).json(absence);
   } catch (error) {
     next(error);
@@ -11,7 +11,7 @@ async function addAbsence(req, res, next) {
 
 async function getAllAbsences(req, res, next) {
   try {
-    const absences = await absenceService.FindAllAbsences();
+    const absences = await absenceService.FindAllAbsences(req, res, next);
     res.json(absences);
   } catch (error) {
     next(error);
@@ -20,9 +20,7 @@ async function getAllAbsences(req, res, next) {
 
 async function getSingleAbsence(req, res, next) {
   try {
-    const absence = await absenceService.FindSingleAbsence(
-      req.params.absenceId
-    );
+    const absence = await absenceService.FindSingleAbsence(req, res, next);
     res.json(absence);
   } catch (error) {
     res.send(error.message);
@@ -31,10 +29,7 @@ async function getSingleAbsence(req, res, next) {
 
 async function updateAbsence(req, res, next) {
   try {
-    const absence = await absenceService.UpdateAbsence(
-      req.params.absenceId,
-      req.body
-    );
+    const absence = await absenceService.UpdateAbsence(req, res, next);
     res.json(absence);
   } catch (error) {
     next(error);
@@ -43,7 +38,7 @@ async function updateAbsence(req, res, next) {
 
 async function deleteAbsence(req, res, next) {
   try {
-    const absence = await absenceService.DeleteAbsence(req.params.absenceId);
+    const absence = await absenceService.DeleteAbsence(req, res, next);
     res.json(absence);
   } catch (error) {
     next(error);

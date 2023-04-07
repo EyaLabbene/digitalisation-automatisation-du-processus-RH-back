@@ -1,31 +1,33 @@
 const TechnicalTest = require("../models/TechnicalTestModel");
 
-async function CreateTechnicalTest(technicalTestData) {
+async function CreateTechnicalTest(req, res, next) {
   try {
-    const technicalTest = new TechnicalTest(technicalTestData);
+    const technicalTest = new TechnicalTest(req.body);
     const savedTechnicalTest = await technicalTest.save();
     return savedTechnicalTest;
   } catch (error) {
-    throw new Error("Error creating TechnicalTest: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllTechnicalTests() {
+async function FindAllTechnicalTests(req, res, next) {
   try {
     const technicalTests = await TechnicalTest.find();
     return technicalTests;
   } catch (error) {
-    throw new Error("Error finding all TechnicalTests: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleTechnicalTest(technicalTestId) {
+async function FindSingleTechnicalTest(req, res, next) {
   try {
-    const currentTechnicalTest = await TechnicalTest.findById(technicalTestId);
+    const currentTechnicalTest = await TechnicalTest.findById(
+      req.params.techTestId
+    );
     if (!currentTechnicalTest) {
-      throw new Error("TechnicalTest not found");
+      res.status(404);
     }
     return currentTechnicalTest;
   } catch (error) {
-    throw new Error("Error finding  TechnicalTest: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const UpdateTechnicalTest =async(req,res)=>{
@@ -37,32 +39,32 @@ async function FindSingleTechnicalTest(technicalTestId) {
 
 }*/
 
-async function UpdateTechnicalTest(technicalTestId, technicalTestData) {
+async function UpdateTechnicalTest(req, res, next) {
   try {
     const technicalTest = await TechnicalTest.findByIdAndUpdate(
-      technicalTestId,
-      technicalTestData,
+      req.params.techTestId,
+      req.body,
       { new: true }
     );
     if (!technicalTest) {
-      throw new Error("TechnicalTest not found");
+      res.status(404);
     }
     return technicalTest;
   } catch (error) {
-    throw new Error("Error updating TechnicalTest: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteTechnicalTest(technicalTestId) {
+async function DeleteTechnicalTest(req, res, next) {
   try {
     const technicalTest = await TechnicalTest.findByIdAndDelete(
-      technicalTestId
+      req.params.techTestId
     );
     if (!technicalTest) {
-      throw new Error("TechnicalTest not found");
+      res.status(404);
     }
     return technicalTest;
   } catch (error) {
-    throw new Error("Error deleting TechnicalTest: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

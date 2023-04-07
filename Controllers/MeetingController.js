@@ -2,7 +2,7 @@ const meetingService = require("../services/meetingService");
 
 async function addMeeting(req, res, next) {
   try {
-    const meeting = await meetingService.CreateMeeting(req.body);
+    const meeting = await meetingService.CreateMeeting(req, res, next);
     res.status(201).json(meeting);
   } catch (error) {
     res.send(error);
@@ -10,7 +10,7 @@ async function addMeeting(req, res, next) {
 }
 async function getAllMeetings(req, res, next) {
   try {
-    const meetings = await meetingService.FindAllMeetings();
+    const meetings = await meetingService.FindAllMeetings(req, res, next);
     res.json(meetings);
   } catch (error) {
     res.send("error");
@@ -19,9 +19,7 @@ async function getAllMeetings(req, res, next) {
 
 async function getSingleMeeting(req, res, next) {
   try {
-    const meeting = await meetingService.FindSingleMeeting(
-      req.params.meetingId
-    );
+    const meeting = await meetingService.FindSingleMeeting(req, res, next);
     res.json(meeting);
   } catch (error) {
     res.send(error.message);
@@ -30,10 +28,7 @@ async function getSingleMeeting(req, res, next) {
 
 async function updateMeeting(req, res, next) {
   try {
-    const meeting = await meetingService.UpdateMeeting(
-      req.params.meetingId,
-      req.body
-    );
+    const meeting = await meetingService.UpdateMeeting(req, res, next);
     res.json(meeting);
   } catch (error) {
     res.send("error");
@@ -42,7 +37,7 @@ async function updateMeeting(req, res, next) {
 
 async function deleteMeeting(req, res, next) {
   try {
-    const meeting = await meetingService.DeleteMeeting(req.params.meetingId);
+    const meeting = await meetingService.DeleteMeeting(req, res, next);
     res.json(meeting);
   } catch (error) {
     res.send("error");

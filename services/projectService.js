@@ -1,35 +1,35 @@
 const Project = require("../models/ProjectModel");
 
-async function CreateProject(projectData) {
+async function CreateProject(req, res, next) {
   try {
-    const project = new Project(projectData);
+    const project = new Project(req.body);
     const savedProject = await project.save();
     return savedProject;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating project: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllProjects() {
+async function FindAllProjects(req, res, next) {
   try {
     const projects = await Project.find();
     return projects;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all projects: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleProject(projectId) {
+async function FindSingleProject(req, res, next) {
   try {
     console.log("khlat l service");
-    const project = await Project.findById(projectId);
+    const project = await Project.findById(req.params.projectId);
     console.log(project);
     if (!project) {
-      throw new Error("project not found");
+      res.status(404);
     }
     return project;
   } catch (error) {
-    throw new Error("Error finding  project: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const Updateproject =async(req,res)=>{
@@ -41,28 +41,32 @@ async function FindSingleProject(projectId) {
 
 }*/
 
-async function UpdateProject(projectId, projectData) {
+async function UpdateProject(req, res, next) {
   try {
-    const project = await Project.findByIdAndUpdate(projectId, projectData, {
-      new: true,
-    });
+    const project = await Project.findByIdAndUpdate(
+      req.params.projectId,
+      req.body,
+      {
+        new: true,
+      }
+    );
     if (!project) {
-      throw new Error("project not found");
+      res.status(404);
     }
     return project;
   } catch (error) {
-    throw new Error("Error updating project: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteProject(projectId) {
+async function DeleteProject(req, res, next) {
   try {
-    const project = await Project.findByIdAndDelete(projectId);
+    const project = await Project.findByIdAndDelete(req.params.projectId);
     if (!project) {
-      throw new Error("project not found");
+      res.status(404);
     }
     return project;
   } catch (error) {
-    throw new Error("Error deleting project: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {

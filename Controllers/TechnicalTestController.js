@@ -3,7 +3,9 @@ const technicalTestService = require("../services/technicalTestService");
 async function addTechTest(req, res, next) {
   try {
     const technicalTest = await technicalTestService.CreateTechnicalTest(
-      req.body
+      req,
+      res,
+      next
     );
     res.status(201).json(technicalTest);
   } catch (error) {
@@ -13,7 +15,11 @@ async function addTechTest(req, res, next) {
 
 async function getAllTechTest(req, res, next) {
   try {
-    const technicalTests = await technicalTestService.FindAllTechnicalTests();
+    const technicalTests = await technicalTestService.FindAllTechnicalTests(
+      req,
+      res,
+      next
+    );
     res.json(technicalTests);
   } catch (error) {
     res.send("error");
@@ -23,7 +29,9 @@ async function getAllTechTest(req, res, next) {
 async function getSingleTechTest(req, res, next) {
   try {
     const technicalTest = await technicalTestService.FindSingleTechnicalTest(
-      req.params.techTestId
+      req,
+      res,
+      next
     );
     res.json(technicalTest);
   } catch (error) {
@@ -33,11 +41,12 @@ async function getSingleTechTest(req, res, next) {
 
 async function updateTechTest(req, res, next) {
   try {
-    console.log(req.params.techTestId);
-    console.log(req.body);
+    /*console.log(req.params.techTestId);
+    console.log(req.body);*/
     const technicalTest = await technicalTestService.UpdateTechnicalTest(
-      req.params.techTestId,
-      req.body
+      req,
+      res,
+      next
     );
     res.json(technicalTest);
   } catch (error) {
@@ -48,7 +57,9 @@ async function updateTechTest(req, res, next) {
 async function deleteTechTest(req, res, next) {
   try {
     const technicalTest = await technicalTestService.DeleteTechnicalTest(
-      req.params.techTestId
+      req,
+      res,
+      next
     );
     res.json(technicalTest);
   } catch (error) {

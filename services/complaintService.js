@@ -1,35 +1,33 @@
 const Complaint = require("../models/ComplaintModel");
 
-async function CreateComplaint(complaintData) {
+async function CreateComplaint(req, res, next) {
   try {
-    const complaint = new Complaint(complaintData);
+    const complaint = new Complaint(req.body);
     const savedComplaint = await complaint.save();
     return savedComplaint;
   } catch (error) {
     console.log(error);
-    throw new Error("Error creating complaint: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindAllComplaints() {
+async function FindAllComplaints(req, res, next) {
   try {
     const complaints = await Complaint.find();
     return complaints;
   } catch (error) {
     console.log(error);
-    throw new Error("Error finding all complaints: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function FindSingleComplaint(complaintId, complaintData) {
+async function FindSingleComplaint(req, res, next) {
   try {
-    const complaint = await Complaint.findById(complaintId, complaintData, {
-      new: true,
-    });
+    const complaint = await Complaint.findById(req.params.complaintId);
     if (!complaint) {
-      throw new Error("complaint not found");
+      res.status(404);
     }
     return complaint;
   } catch (error) {
-    throw new Error("Error finding  complaint: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 /*const Updatecomplaint =async(req,res)=>{
@@ -41,30 +39,30 @@ async function FindSingleComplaint(complaintId, complaintData) {
 
 }*/
 
-async function UpdateComplaint(complaintId, complaintData) {
+async function UpdateComplaint(req, res, next) {
   try {
     const complaint = await Complaint.findByIdAndUpdate(
-      complaintId,
-      complaintData,
+      req.params.complaintId,
+      req.body,
       { new: true }
     );
     if (!complaint) {
-      throw new Error("complaint not found");
+      res.status(404);
     }
     return complaint;
   } catch (error) {
-    throw new Error("Error updating complaint: " + error.message);
+    res.status(500).send(error.message);
   }
 }
-async function DeleteComplaint(complaintId) {
+async function DeleteComplaint(req, res, next) {
   try {
-    const complaint = await Complaint.findByIdAndDelete(complaintId);
+    const complaint = await Complaint.findByIdAndDelete(req.params.complaintId);
     if (!complaint) {
-      throw new Error("complaint not found");
+      res.status(404);
     }
     return complaint;
   } catch (error) {
-    throw new Error("Error deleting complaint: " + error.message);
+    res.status(500).send(error.message);
   }
 }
 module.exports = {
