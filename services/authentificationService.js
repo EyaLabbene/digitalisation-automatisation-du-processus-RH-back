@@ -7,7 +7,7 @@ async function authenticateUser(email, password) {
   const user = await User.findOne({ email });
 
   if (!user) {
-    throw new Error("User not found");
+    res.status(404);
   }
 
   // check if password matches
