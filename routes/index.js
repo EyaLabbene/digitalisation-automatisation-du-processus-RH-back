@@ -1,7 +1,13 @@
 var express = require("express");
 var app = express();
+const userController = require("../Controllers/UserController");
+const {
+  authenticateToken,
+} = require("../middlewares/authentificationMiddleware");
 
 app.use("/user", require("./userRoute"));
+app.use("/authentification", require("./authentificationRoute"));
+
 app.use("/techTest", require("./technicalTestRoute"));
 app.use("/meeting", require("./meetingRoute"));
 

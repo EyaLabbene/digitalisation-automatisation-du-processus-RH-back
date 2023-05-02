@@ -44,6 +44,32 @@ async function deleteUser(req, res, next) {
     res.send("error");
   }
 }
+async function getUserProfile(req, res, next) {
+  try {
+    // Get the user ID from the decoded JWT token
+    const userId = req.user.id;
+
+    // Find the user in the database using the user ID
+    const user = await User.findById(userId);
+
+    // If the user does not exist, return an error
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Return the user profile data
+    res.status(200).json({
+      last_name: user.last_name,
+      role: user.role,
+      first_name: user.first_name,
+      date_of_birth: user.date_of_birth,
+
+      // ...other profile data you want to include
+    });
+  } catch (err) {
+    next(err);
+  }
+}
 
 module.exports = {
   addUser,
@@ -51,4 +77,5 @@ module.exports = {
   getSingleUser,
   updateUser,
   deleteUser,
+  getUserProfile,
 };

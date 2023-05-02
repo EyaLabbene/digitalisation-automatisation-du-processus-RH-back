@@ -1,26 +1,30 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/UserModel");
 
-// authenticate user by email and password
+const bcrypt = require("bcrypt");
+
 async function authenticateUser(email, password) {
-  // find user by email
   const user = await User.findOne({ email });
 
   if (!user) {
-    res.status(404);
+    throw new Error("User not found");
   }
-
-  // check if password matches
-  const isMatch = await user.comparePassword(password);
+  console.log("hkjvfkdjhvkdhh");
+  const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
     throw new Error("Invalid password");
   }
 
-  // generate token
   const token = jwt.sign({ userId: user._id }, "secretkey");
 
-  return { user, token };
+  return {
+    role: user.role,
+    last_name: user.last_name,
+    first_name: user.first_name,
+    date_of_birth: user.date_of_birth,
+    token,
+  };
 }
 
 module.exports = {
