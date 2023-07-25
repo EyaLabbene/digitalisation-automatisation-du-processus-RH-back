@@ -12,7 +12,9 @@ async function CreateProject(req, res, next) {
 }
 async function FindAllProjects(req, res, next) {
   try {
-    const projects = await Project.find();
+    const projects = await Project.find().populate([
+      { path: "employee", select: "Username" },
+    ]);
     return projects;
   } catch (error) {
     console.log(error);

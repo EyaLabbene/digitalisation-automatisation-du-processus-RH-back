@@ -4,7 +4,7 @@ const {
   authenticateToken,
 } = require("../middlewares/authentificationMiddleware");
 const router = express.Router();
-// router.use(authentificationMiddleware.authenticate);
+
 router.post("/", userController.addUser);
 router.get("/", userController.getAllUsers);
 

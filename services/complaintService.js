@@ -12,7 +12,9 @@ async function CreateComplaint(req, res, next) {
 }
 async function FindAllComplaints(req, res, next) {
   try {
-    const complaints = await Complaint.find();
+    const complaints = await Complaint.find().populate([
+      { path: "createdBy", select: "Username" },
+    ]);
     return complaints;
   } catch (error) {
     console.log(error);

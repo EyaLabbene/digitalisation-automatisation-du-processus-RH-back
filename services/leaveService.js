@@ -12,7 +12,9 @@ async function CreateLeave(req, res, next) {
 }
 async function FindAllLeaves(req, res, next) {
   try {
-    const leaves = await Leave.find();
+    const leaves = await Leave.find().populate([
+      { path: "employee", select: "Username" },
+    ]);
     return leaves;
   } catch (error) {
     console.log(error);

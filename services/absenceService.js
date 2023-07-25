@@ -12,7 +12,9 @@ async function CreateAbsence(req, res, next) {
 }
 async function FindAllAbsences(req, res, next) {
   try {
-    const absences = await Absence.find();
+    const absences = await Absence.find().populate([
+      { path: "employee", select: "Username" },
+    ]);
     return absences;
   } catch (error) {
     console.log(error);

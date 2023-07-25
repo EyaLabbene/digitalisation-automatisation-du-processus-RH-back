@@ -12,7 +12,7 @@ async function CreatePoste(req, res, next) {
 }
 async function FindAllPostes(req, res, next) {
   try {
-    const postes = await Poste.find();
+    const postes = await Poste.find().lean();
     return postes;
   } catch (error) {
     console.log(error);

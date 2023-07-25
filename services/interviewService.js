@@ -12,7 +12,10 @@ async function CreateInterview(req, res, next) {
 }
 async function FindAllInterviews(req, res, next) {
   try {
-    const interviews = await Interview.find();
+    const interviews = await Interview.find().populate([
+      { path: "interviewer", select: "Username" },
+      "interviewee",
+    ]);
     return interviews;
   } catch (error) {
     console.log(error);
