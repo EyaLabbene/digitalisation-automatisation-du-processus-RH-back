@@ -3,7 +3,12 @@ const Schema = mongoose.Schema;
 
 const technicalTestSchema = new Schema(
   {
-    questions: [mongoose.Schema.Types.ObjectId],
+    questions: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "questionResponse",
+      },
+    ],
     title: { type: String, required: true },
   },
   { timestamps: true }

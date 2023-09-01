@@ -26,9 +26,14 @@ const upload = util.promisify(multer({ storage, fileFilter }).single("image"));
 
 const handleImage = async (req, res, next) => {
   try {
+    console.log("before upload");
     await upload(req, res);
+    console.log("adter upload");
+    console.log(req.file);
+    console.log(req.body);
     if (req.file && req.file.fieldname === "image") {
       try {
+        console.log("t3adit");
         req.image = await sharp(req.file.path)
           .resize(300, 300, { fit: "inside" })
           .webp({ lossless: false, quality: 70 })

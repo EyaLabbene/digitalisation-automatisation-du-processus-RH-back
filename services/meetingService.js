@@ -12,7 +12,7 @@ async function CreateMeeting(req, res, next) {
 }
 async function FindAllMeetings(req, res, next) {
   try {
-    const meetings = await Meeting.find();
+    const meetings = await Meeting.find().populate([{ path: "employee" }]);
     return meetings;
   } catch (error) {
     console.log(error);

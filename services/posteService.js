@@ -2,6 +2,7 @@ const Poste = require("../models/PosteModel");
 
 async function CreatePoste(req, res, next) {
   try {
+    console.log(req.data);
     const poste = new Poste(req.data);
     const savedPoste = await poste.save();
     return savedPoste;

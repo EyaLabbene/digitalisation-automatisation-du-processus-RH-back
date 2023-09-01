@@ -1,7 +1,10 @@
 const User = require("../models/UserModel");
 
+const bcrypt = require("bcrypt");
+
 async function CreateUser(req, res, next) {
   try {
+    console.log(req.body);
     const user = new User(req.body);
     const savedUser = await user.save();
     return savedUser;
@@ -43,6 +46,12 @@ async function UpdateUser(req, res, next) {
   try {
     console.log(req.params.userId);
     console.log(req.body);
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(req.body.password, salt);
+      req.body.password = hash;
+    }
+
     const user = await User.findByIdAndUpdate(req.params.userId, req.body, {
       new: true,
     });

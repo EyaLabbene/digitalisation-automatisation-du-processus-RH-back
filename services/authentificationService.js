@@ -13,8 +13,10 @@ async function authenticateUser(email, password) {
   const isMatch = await bcrypt.compare(password, user.password);
 
   if (!isMatch) {
+    console.log("no match");
     throw new Error("Invalid password");
   }
+  console.log("good");
 
   const token = jwt.sign({ userId: user._id }, "secretkey");
 

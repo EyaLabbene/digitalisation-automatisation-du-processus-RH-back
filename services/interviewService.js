@@ -1,5 +1,5 @@
 const Interview = require("../models/InterviewModel");
-
+const User = require("../models/UserModel");
 async function CreateInterview(req, res, next) {
   try {
     const interview = new Interview(req.body);
@@ -17,6 +17,20 @@ async function FindAllInterviews(req, res, next) {
       "interviewee",
     ]);
     return interviews;
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+}
+async function FindMyInterviews(user) {
+  try {
+    // if (user.role === "candidate") {
+    // Fetch interviews where interviewee is the current user
+    const interviews = await Interview.find({ interviewee: user._id }).populate(
+      [{ path: "interviewer", select: "Username" }]
+    ); //kifeh tconnecti f postman? wini requete authentification li temchi kenet temchi hedhika
+    return interviews;
+    // }
   } catch (error) {
     console.log(error);
     res.status(500).send(error.message);
@@ -74,4 +88,5 @@ module.exports = {
   FindSingleInterview,
   UpdateInterview,
   DeleteInterview,
+  FindMyInterviews,
 };

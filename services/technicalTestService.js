@@ -11,7 +11,9 @@ async function CreateTechnicalTest(req, res, next) {
 }
 async function FindAllTechnicalTests(req, res, next) {
   try {
-    const technicalTests = await TechnicalTest.find();
+    const technicalTests = await TechnicalTest.find().populate([
+      { path: "questions" },
+    ]);
     return technicalTests;
   } catch (error) {
     res.status(500).send(error.message);
