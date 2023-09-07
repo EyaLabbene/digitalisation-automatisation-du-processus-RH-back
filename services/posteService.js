@@ -44,7 +44,7 @@ async function UpdatePoste(req, res, next) {
   try {
     const poste = await Poste.findByIdAndUpdate(req.params.posteId, req.data, {
       new: true,
-    });
+    }).lean();
     if (!poste) {
       res.status(404);
     }

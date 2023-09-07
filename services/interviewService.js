@@ -62,7 +62,7 @@ async function UpdateInterview(req, res, next) {
       req.params.interviewId,
       req.body,
       { new: true }
-    );
+    ).populate([{ path: "interviewer", select: "Username" }, "interviewee"]);
     if (!interview) {
       res.status(404);
     }

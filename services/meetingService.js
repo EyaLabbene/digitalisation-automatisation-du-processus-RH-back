@@ -47,7 +47,7 @@ async function UpdateMeeting(req, res, next) {
       {
         new: true,
       }
-    );
+    ).populate([{ path: "employee" }]);
     if (!meeting) {
       res.status(404);
     }

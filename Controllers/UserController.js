@@ -50,7 +50,7 @@ async function getUserProfile(req, res, next) {
     const userId = req.user.id;
 
     // Find the user in the database using the user ID
-    const user = await User.findById(userId);
+    const user = await userService.findById(userId);
 
     // If the user does not exist, return an error
     if (!user) {

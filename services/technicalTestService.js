@@ -47,7 +47,7 @@ async function UpdateTechnicalTest(req, res, next) {
       req.params.techTestId,
       req.body,
       { new: true }
-    );
+    ).populate([{ path: "questions" }]);
     if (!technicalTest) {
       res.status(404);
     }
