@@ -51,7 +51,7 @@ async function UpdateProject(req, res, next) {
       {
         new: true,
       }
-    );
+    ).populate([{ path: "employee", select: "Username" }]);
     if (!project) {
       res.status(404);
     }
