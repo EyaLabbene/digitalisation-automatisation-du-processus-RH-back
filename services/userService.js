@@ -22,6 +22,16 @@ async function FindAllUsers(req, res, next) {
     res.status(500).send(error.message);
   }
 }
+
+async function FindAllCandidateUsers(req, res, next) {
+  try {
+    const users = await User.find({ role: "candidate" });
+    return users;
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+}
 async function FindSingleUser(req, res, next) {
   try {
     const user = await User.findById(req.params.userId);
@@ -78,6 +88,7 @@ async function DeleteUser(req, res, next) {
 module.exports = {
   CreateUser,
   FindAllUsers,
+  FindAllCandidateUsers,
   FindSingleUser,
   UpdateUser,
   DeleteUser,

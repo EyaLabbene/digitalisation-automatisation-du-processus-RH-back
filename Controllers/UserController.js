@@ -9,6 +9,14 @@ async function addUser(req, res, next) {
   }
 }
 
+async function getAllCandidateUsers(req, res, next) {
+  try {
+    const users = await userService.FindAllCandidateUsers(req, res, next);
+    res.json(users);
+  } catch (error) {
+    res.send("error");
+  }
+}
 async function getAllUsers(req, res, next) {
   try {
     const users = await userService.FindAllUsers(req, res, next);
@@ -77,5 +85,6 @@ module.exports = {
   getSingleUser,
   updateUser,
   deleteUser,
+  getAllCandidateUsers,
   getUserProfile,
 };

@@ -17,6 +17,7 @@ app.use("/profile", require("./profileRoute"));
 app.use("/poste", require("./posteRoute"));
 app.use("/questionResponse", require("./questionResponseRoute"));
 app.use("/interview", require("./interviewRoute"));
+app.use("/userTest", require("./userTestRoute"));
 app.use("/leave", require("./leaveRoute"));
 app.use("/absence", require("./absenceRoute"));
 
