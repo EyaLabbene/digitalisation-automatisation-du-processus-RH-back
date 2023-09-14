@@ -38,7 +38,14 @@ async function FindMyUserTests(req, res, next) {
 }
 async function FindSingleUserTest(req, res, next) {
   try {
-    const userTest = await UserTest.findById(req.params.userTestId);
+    const userTest = await UserTest.findById(req.params.userTestId).populate([
+      {
+        path: "techTest",
+        populate: {
+          path: "questions",
+        },
+      },
+    ]);
     if (!userTest) {
       res.status(404);
     }
