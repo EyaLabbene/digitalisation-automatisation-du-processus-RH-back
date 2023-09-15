@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const interviewSchema = new Schema(
   {
+    date: { type: Date, required: true },
     interviewer: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
     interviewee: {
       type: mongoose.Schema.Types.ObjectId,

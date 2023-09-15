@@ -8,6 +8,7 @@ const router = express.Router();
 router.post("/", userController.addUser);
 router.get("/", userController.getAllUsers);
 router.get("/candidate", userController.getAllCandidateUsers);
+router.get("/employee", userController.getAllEmployeeUsers);
 
 router.get("/:userId", authenticateToken, userController.getSingleUser);
 router.put("/:userId", userController.updateUser);

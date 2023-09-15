@@ -32,6 +32,15 @@ async function FindAllCandidateUsers(req, res, next) {
     res.status(500).send(error.message);
   }
 }
+async function FindAllEmployeeUsers(req, res, next) {
+  try {
+    const users = await User.find({ role: "employee" });
+    return users;
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+}
 async function FindSingleUser(req, res, next) {
   try {
     const user = await User.findById(req.params.userId);
@@ -90,6 +99,7 @@ module.exports = {
   FindAllUsers,
   FindAllCandidateUsers,
   FindSingleUser,
+  FindAllEmployeeUsers,
   UpdateUser,
   DeleteUser,
 };
