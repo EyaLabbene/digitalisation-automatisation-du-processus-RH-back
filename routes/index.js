@@ -14,6 +14,7 @@ app.use("/meeting", require("./meetingRoute"));
 app.use("/complaint", require("./complaintRoute"));
 app.use("/project", require("./projectRoute"));
 app.use("/profile", require("./profileRoute"));
+app.use("/candidacy", require("./candidacyRoute"));
 app.use("/poste", require("./posteRoute"));
 app.use("/questionResponse", require("./questionResponseRoute"));
 app.use("/interview", require("./interviewRoute"));
