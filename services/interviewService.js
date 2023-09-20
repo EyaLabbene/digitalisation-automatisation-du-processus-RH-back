@@ -36,6 +36,20 @@ async function FindMyInterviews(user) {
     res.status(500).send(error.message);
   }
 }
+async function FindMyEmpInterviews(user) {
+  try {
+    // if (user.role === "candidate") {
+    // Fetch interviews where interviewee is the current user
+    const interviews = await Interview.find({ interviewer: user._id }).populate(
+      [{ path: "interviewee", select: "Username" }]
+    ); //kifeh tconnecti f postman? wini requete authentification li temchi kenet temchi hedhika
+    return interviews;
+    // }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error.message);
+  }
+}
 async function FindSingleInterview(req, res, next) {
   try {
     const interview = await Interview.findById(req.params.interviewId);
@@ -85,6 +99,7 @@ async function DeleteInterview(req, res, next) {
 module.exports = {
   CreateInterview,
   FindAllInterviews,
+  FindMyEmpInterviews,
   FindSingleInterview,
   UpdateInterview,
   DeleteInterview,

@@ -22,6 +22,11 @@ router.get(
   InterviewController.getMyInterviews
 );
 router.get(
+  "/mine2",
+  authMiddleware.authenticateToken,
+  InterviewController.getMyEmpInterviews
+);
+router.get(
   "/:interviewId",
   authMiddleware.authenticateToken,
   InterviewController.getSingleInterview

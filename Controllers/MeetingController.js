@@ -16,6 +16,14 @@ async function getAllMeetings(req, res, next) {
     res.send("error");
   }
 }
+async function getMyMeetings(req, res, next) {
+  try {
+    const meetings = await meetingService.FindMyMeetings(req.user);
+    res.json(meetings);
+  } catch (error) {
+    res.send("error");
+  }
+}
 
 async function getSingleMeeting(req, res, next) {
   try {
@@ -46,6 +54,7 @@ async function deleteMeeting(req, res, next) {
 
 module.exports = {
   addMeeting,
+  getMyMeetings,
   getAllMeetings,
   getSingleMeeting,
   updateMeeting,

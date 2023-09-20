@@ -25,6 +25,14 @@ async function getMyInterviews(req, res, next) {
     res.send("error");
   }
 }
+async function getMyEmpInterviews(req, res, next) {
+  try {
+    const interviews = await interviewService.FindMyEmpInterviews(req.user);
+    res.json(interviews);
+  } catch (error) {
+    res.send("error");
+  }
+}
 async function getSingleInterview(req, res, next) {
   try {
     const interview = await interviewService.FindSingleInterview(
@@ -61,6 +69,7 @@ module.exports = {
   getAllInterviews,
   getSingleInterview,
   updateInterview,
+  getMyEmpInterviews,
   deleteInterview,
   getMyInterviews,
 };
