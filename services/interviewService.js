@@ -89,7 +89,7 @@ async function AcceptInterview(req, res, next) {
   try {
     const interview = await Interview.findByIdAndUpdate(
       req.params.interviewId,
-      req.body,
+      { result_case: "accepted" },
       { new: true }
     ).populate([{ path: "interviewer", select: "Username" }, "interviewee"]);
     if (!interview) {
@@ -104,7 +104,7 @@ async function RefuseInterview(req, res, next) {
   try {
     const interview = await Interview.findByIdAndUpdate(
       req.params.interviewId,
-      req.body,
+      { result_case: "refused" },
       { new: true }
     ).populate([{ path: "interviewer", select: "Username" }, "interviewee"]);
     if (!interview) {

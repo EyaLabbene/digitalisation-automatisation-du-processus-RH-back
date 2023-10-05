@@ -37,12 +37,12 @@ router.put(
   InterviewController.updateInterview
 );
 router.put(
-  "/:interviewId",
+  "/accepter/:interviewId",
   authMiddleware.authenticateToken,
   InterviewController.accepterInterview
 );
 router.put(
-  "/:interviewId",
+  "/refuser/:interviewId",
   authMiddleware.authenticateToken,
   InterviewController.RefuserInterview
 );
