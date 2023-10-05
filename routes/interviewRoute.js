@@ -36,6 +36,16 @@ router.put(
   authMiddleware.authenticateToken,
   InterviewController.updateInterview
 );
+router.put(
+  "/accepter",
+  authMiddleware.authenticateToken,
+  InterviewController.updateInterview
+);
+router.put(
+  "/refuser",
+  authMiddleware.authenticateToken,
+  InterviewController.updateInterview
+);
 router.delete(
   "/:interviewId",
   authMiddleware.authenticateToken,
