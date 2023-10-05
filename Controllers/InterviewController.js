@@ -54,6 +54,22 @@ async function updateInterview(req, res, next) {
     res.send("error");
   }
 }
+async function accepterInterview(req, res, next) {
+  try {
+    const interview = await interviewService.AcceptInterview(req, res, next);
+    res.json(interview);
+  } catch (error) {
+    res.send("error");
+  }
+}
+async function RefuserInterview(req, res, next) {
+  try {
+    const interview = await interviewService.RefuseInterview(req, res, next);
+    res.json(interview);
+  } catch (error) {
+    res.send("error");
+  }
+}
 
 async function deleteInterview(req, res, next) {
   try {
@@ -66,6 +82,8 @@ async function deleteInterview(req, res, next) {
 
 module.exports = {
   addInterview,
+  accepterInterview,
+  RefuserInterview,
   getAllInterviews,
   getSingleInterview,
   updateInterview,

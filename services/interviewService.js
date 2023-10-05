@@ -85,6 +85,36 @@ async function UpdateInterview(req, res, next) {
     res.status(500).send(error.message);
   }
 }
+async function AcceptInterview(req, res, next) {
+  try {
+    const interview = await Interview.findByIdAndUpdate(
+      req.params.interviewId,
+      req.body,
+      { new: true }
+    ).populate([{ path: "interviewer", select: "Username" }, "interviewee"]);
+    if (!interview) {
+      res.status(404);
+    }
+    return interview;
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
+async function RefuseInterview(req, res, next) {
+  try {
+    const interview = await Interview.findByIdAndUpdate(
+      req.params.interviewId,
+      req.body,
+      { new: true }
+    ).populate([{ path: "interviewer", select: "Username" }, "interviewee"]);
+    if (!interview) {
+      res.status(404);
+    }
+    return interview;
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+}
 async function DeleteInterview(req, res, next) {
   try {
     const interview = await Interview.findByIdAndDelete(req.params.interviewId);
@@ -99,6 +129,8 @@ async function DeleteInterview(req, res, next) {
 module.exports = {
   CreateInterview,
   FindAllInterviews,
+  RefuseInterview,
+  AcceptInterview,
   FindMyEmpInterviews,
   FindSingleInterview,
   UpdateInterview,
